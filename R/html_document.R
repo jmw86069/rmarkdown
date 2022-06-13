@@ -560,7 +560,7 @@ html_document <- function(toc = FALSE,
         includes <- list(before_body = navbar)
         args <- c(args, includes_to_pandoc_args(includes,
                                   filter = if (is_shiny_classic(runtime))
-                                    function(x) normalize_path(x, mustWork = FALSE)
+                                    function(x) normalize_directory(x, mustWork = FALSE)
                                   else
                                     identity))
 
@@ -622,7 +622,7 @@ html_document <- function(toc = FALSE,
     # elsewhere.
     args <- c(args, includes_to_pandoc_args(includes,
                       filter = if (is_shiny_classic(runtime))
-                        function(x) normalize_path(x, mustWork = FALSE)
+                        function(x) normalize_directory(x, mustWork = FALSE)
                       else
                         identity))
 

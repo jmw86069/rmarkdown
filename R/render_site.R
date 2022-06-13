@@ -323,7 +323,7 @@ site_config <- function(input = ".", encoding = "UTF-8") {
 
     # provide defaults if necessary
     if (is.null(config$name))
-      config$name <- basename(normalize_path(input))
+      config$name <- basename(normalize_directory(input))
     if (is.null(config$output_dir))
       config$output_dir <- "_site"
     if (is.null(config$new_session))
@@ -655,7 +655,7 @@ input_as_dir <- function(input) {
 
   # ensure the input dir exists
   if (!file.exists(input)) {
-    input <- normalize_path(input, mustWork = FALSE)
+    input <- normalize_directory(input, mustWork = FALSE)
     if (!file.exists(input)) {
       stop2("The specified directory '", input, "' does not exist.")
     }

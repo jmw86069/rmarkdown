@@ -27,8 +27,8 @@ relative_to <- function(dir, file) {
 # A variant of relative_to that normalizes its inputs.
 normalized_relative_to <- function(dir, file) {
   relative_to(
-    normalize_path(dir, mustWork = FALSE),
-    normalize_path(file, mustWork = FALSE))
+    normalize_directory(dir, mustWork = FALSE),
+    normalize_directory(file, mustWork = FALSE))
 }
 
 # If a path is a relative path, it should be the same as ./path

@@ -388,7 +388,7 @@ default_output_format <- function(input, output_yaml = NULL) {
 
   # execute within the input file's directory (this emulates the way
   # yaml front matter discovery is done within render)
-  oldwd <- setwd(dirname(abs_path(input)))
+  oldwd <- setwd(dirname(abs_directory(input)))
   on.exit(setwd(oldwd), add = TRUE)
 
   # because we're now within the same directory as the input file,

@@ -67,7 +67,7 @@ find_external_resources <- function(input_file, encoding = 'UTF-8') {
     path = character(0), explicit = logical(0), web = logical(0)
   )
 
-  input_dir <- dirname(normalize_path(input_file))
+  input_dir <- dirname(normalize_directory(input_file))
 
   # discover a single resource--tests a string to see if it corresponds to a
   # resource on disk; if so, adds it to the list of known resources and returns
@@ -167,7 +167,7 @@ discover_rmd_resources <- function(rmd_file, discover_single_resource) {
   # create a UTF-8 encoded Markdown file to serve as the resource discovery
   # source
   md_file <- tempfile(fileext = ".md")
-  input_dir <- dirname(normalize_path(rmd_file))
+  input_dir <- dirname(normalize_directory(rmd_file))
   output_dir <- dirname(md_file)
   rmd_content <- read_utf8(rmd_file)
   if (length(i <- grep('^---\\s*$', rmd_content)) >= 2 && i[1] == 1) {
@@ -403,7 +403,7 @@ copy_render_intermediates <- function(original_input, intermediates_dir, skip_we
   # resources
   resources <- find_external_resources(original_input)
   dest_dir <- normalize_path(intermediates_dir)
-  source_dir <- dirname(normalize_path(original_input))
+  source_dir <- dirname(normalize_directory(original_input))
 
   # process each returned reosurce
   by(resources, seq_len(nrow(resources)), function(res) {

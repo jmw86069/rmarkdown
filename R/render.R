@@ -349,7 +349,7 @@ render <- function(input,
 
   # remember the name of the original input document (we overwrite 'input' once
   # we've knitted)
-  original_input <- normalize_path(input)
+  original_input <- normalize_directory(input)
 
   # if the input file has shell characters in its name then make a copy that
   # doesn't have shell characters
@@ -371,7 +371,7 @@ render <- function(input,
     # if an intermediates directory wasn't explicit before, make it explicit now
     if (is.null(intermediates_dir)) {
       intermediates_dir <-
-        dirname(normalize_path(input_no_shell_chars))
+        dirname(normalize_directory(input_no_shell_chars))
     }
   }
 
@@ -386,7 +386,7 @@ render <- function(input,
   force(knit_root_dir)
 
   # execute within the input file's directory
-  oldwd <- setwd(dirname(abs_path(input)))
+  oldwd <- setwd(dirname(abs_directory(input)))
   on.exit(setwd(oldwd), add = TRUE)
 
   # reset the name of the input file to be relative and generete the name of
@@ -980,7 +980,7 @@ render <- function(input,
         file.rename(file_with_ext(texfile, "pdf"), output_file)
         # clean up the tex file if necessary
         if (!output_format$pandoc$keep_tex) {
-          texfile <- normalize_path(texfile)
+          texfile <- normalize_directory(texfile)
           on.exit(unlink(texfile), add = TRUE)
         }
       }
@@ -1026,7 +1026,7 @@ render <- function(input,
 
   if (run_pandoc) {
     # return the full path to the output file
-    output_file <- abs_path(output_file)
+    output_file <- abs_directory(output_file)
     # attach the metadata specified as rmd_output_metadata in YAML
     if (length(output_meta <- output_metadata$get()))
       attr(output_file, 'rmd_output_metadata') <- output_meta
